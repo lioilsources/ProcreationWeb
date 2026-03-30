@@ -1,0 +1,55 @@
+---
+import type { Lang } from '../i18n/translations';
+import { t } from '../i18n/translations';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const tr = t(lang);
+const items = tr.experience.items;
+---
+
+<section id="experience" class="section">
+  <div class="container">
+
+    <div class="mb-16">
+      <div class="reveal section-label">{tr.experience.title}</div>
+      <h2 class="reveal reveal-delay-1 section-title">{tr.experience.subtitle}</h2>
+    </div>
+
+    <div class="relative pl-6 md:pl-8">
+      <!-- Vertical line -->
+      <div class="timeline-line"></div>
+
+      <div class="space-y-0">
+        {items.map((item, i) => (
+          <div class={`reveal reveal-delay-${(i % 4) + 1} relative group`}>
+            <!-- Dot -->
+            <div
+              class="absolute -left-[21px] md:-left-[25px] top-6 w-3 h-3 rounded-full border-2 transition-all duration-300 group-hover:scale-150"
+              style="background: var(--bg); border-color: var(--accent);"
+            ></div>
+
+            <!-- Card -->
+            <div
+              class="ml-4 mb-1 p-5 md:p-6 rounded-2xl transition-all duration-300 group-hover:border-opacity-50"
+              style="border: 1px solid transparent; background: transparent;"
+              onmouseover="this.style.background='var(--surface)'; this.style.borderColor='var(--border)';"
+              onmouseout="this.style.background='transparent'; this.style.borderColor='transparent';"
+            >
+              <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-2">
+                <div>
+                  <h3 class="font-semibold text-base" style="color: var(--text);">{item.company}</h3>
+                  <p class="text-sm font-medium" style="color: var(--accent);">{item.role}</p>
+                </div>
+                <span class="text-xs font-mono flex-shrink-0 mt-0.5 px-2.5 py-1 rounded-full"
+                      style="color: var(--text-3); background: var(--surface); border: 1px solid var(--border);">{item.year}</span>
+              </div>
+              <p class="text-sm" style="color: var(--text-2);">{item.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+  </div>
+</section>

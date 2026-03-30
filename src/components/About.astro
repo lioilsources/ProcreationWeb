@@ -1,0 +1,113 @@
+---
+import type { Lang } from '../i18n/translations';
+import { t } from '../i18n/translations';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const tr = t(lang);
+---
+
+<section id="about" class="section" style="background: var(--bg2);">
+  <div class="container">
+    <div class="grid md:grid-cols-2 gap-16 items-center">
+
+      <!-- Text -->
+      <div>
+        <div class="reveal section-label">{tr.nav.about}</div>
+        <h2 class="reveal reveal-delay-1 section-title">{tr.about.title}</h2>
+
+        <p class="reveal reveal-delay-2 text-base leading-relaxed mb-4" style="color: var(--text-2);">
+          {tr.about.p1}
+        </p>
+        <p class="reveal reveal-delay-3 text-base leading-relaxed mb-4" style="color: var(--text-2);">
+          {tr.about.p2}
+        </p>
+        <p class="reveal reveal-delay-4 text-base leading-relaxed" style="color: var(--text-2);">
+          {tr.about.p3}
+        </p>
+
+        <!-- Meta -->
+        <div class="reveal reveal-delay-5 flex flex-wrap gap-3 mt-8">
+          <div class="glass px-4 py-2 flex items-center gap-2 text-sm">
+            <svg class="w-4 h-4 accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/>
+              <path stroke-linecap="round" stroke-linejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/>
+            </svg>
+            <span style="color: var(--text-2);">{tr.about.location}</span>
+          </div>
+          <div class="glass px-4 py-2 flex items-center gap-2 text-sm">
+            <svg class="w-4 h-4 accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+            </svg>
+            <span style="color: var(--text-2);">{tr.about.availability}</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profile visual -->
+      <div class="reveal reveal-delay-2 flex justify-center md:justify-end">
+        <div class="relative">
+          <!-- Glow ring -->
+          <div class="absolute inset-0 rounded-3xl scale-105"
+               style="background: linear-gradient(135deg, var(--accent-glow), transparent); filter: blur(24px);"></div>
+
+          <!-- Card -->
+          <div class="glass relative w-72 rounded-3xl overflow-hidden p-8 flex flex-col items-center text-center">
+            <!-- Avatar -->
+            <div class="w-24 h-24 rounded-2xl mb-6 overflow-hidden flex items-center justify-center"
+                 style="background: var(--surface); border: 1px solid var(--border-accent);">
+              <img
+                src="/assets/BYDK.gif"
+                alt="Bc. Lukáš Zdenek"
+                class="w-full h-full object-cover"
+                style="image-rendering: pixelated;"
+              />
+            </div>
+
+            <h3 class="font-bold text-lg mb-1" style="color: var(--text);">Bc. Lukáš Zdenek</h3>
+            <p class="text-sm mb-6" style="color: var(--accent);">{tr.hero.role}</p>
+
+            <div class="w-full space-y-3">
+              {[
+                { label: 'Unity3D', value: 95 },
+                { label: 'C#', value: 90 },
+                { label: 'Embedded / Arduino', value: 75 },
+              ].map(({ label, value }) => (
+                <div>
+                  <div class="flex justify-between text-xs mb-1">
+                    <span style="color: var(--text-2);">{label}</span>
+                    <span style="color: var(--text-3);">{value}%</span>
+                  </div>
+                  <div class="h-1 rounded-full overflow-hidden" style="background: var(--surface);">
+                    <div
+                      class="h-full rounded-full skill-bar"
+                      data-width={value}
+                      style={`width: 0%; background: linear-gradient(90deg, var(--accent), var(--accent-2));`}
+                    ></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<script is:inline>
+  // Animate skill bars when visible
+  const skillBars = document.querySelectorAll('.skill-bar');
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const bar = e.target;
+        const width = bar.getAttribute('data-width');
+        setTimeout(() => { bar.style.width = width + '%'; bar.style.transition = 'width 1s cubic-bezier(0.16,1,0.3,1)'; }, 200);
+        barObserver.unobserve(bar);
+      }
+    });
+  }, { threshold: 0.5 });
+  skillBars.forEach(b => barObserver.observe(b));
+</script>

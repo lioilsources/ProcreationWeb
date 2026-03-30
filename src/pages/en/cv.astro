@@ -1,0 +1,95 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { t } from '../../i18n/translations';
+const tr = t('en');
+---
+
+<Layout lang="en" title="CV — Bc. Lukáš Zdenek">
+  <div class="min-h-screen py-24 section">
+    <div class="container max-w-3xl">
+
+      <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6 mb-12">
+        <div>
+          <div class="section-label mb-3">{tr.cv.title}</div>
+          <h1 class="text-4xl font-bold mb-2" style="color: var(--text);">Bc. Lukáš Zdenek</h1>
+          <p class="text-lg" style="color: var(--accent);">{tr.hero.role}</p>
+        </div>
+        <button onclick="window.print()" class="btn-ghost self-start flex-shrink-0">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+          </svg>
+          {tr.cv.download}
+        </button>
+      </div>
+
+      <div class="mb-12">
+        <h2 class="text-sm font-semibold uppercase tracking-widest mb-6 pb-3" style="color: var(--accent); border-bottom: 1px solid var(--border);">{tr.cv.study}</h2>
+        <div class="space-y-4">
+          {[
+            { period: '1997–2001', school: 'SPŠ Ostrov', field: 'Electronics & Telecommunications' },
+            { period: 'Bc.', school: 'ZČU Pilsen, FAV', field: 'Computer Science & Engineering' },
+            { period: '1 year', school: 'ZČU Pilsen, FF', field: 'Archaeology of Bohemia & Moravia' },
+          ].map(e => (
+            <div class="flex justify-between gap-4">
+              <div>
+                <div class="font-medium" style="color: var(--text);">{e.school}</div>
+                <div class="text-sm" style="color: var(--text-2);">{e.field}</div>
+              </div>
+              <div class="text-xs font-mono flex-shrink-0 mt-0.5 px-2 py-1 rounded-full self-start"
+                   style="color: var(--text-3); background: var(--surface); border: 1px solid var(--border);">{e.period}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="mb-12">
+        <h2 class="text-sm font-semibold uppercase tracking-widest mb-6 pb-3" style="color: var(--accent); border-bottom: 1px solid var(--border);">Game Development</h2>
+        <div class="space-y-4">
+          {[
+            { period: '2023–', company: 'IExperta', role: 'Unity3D Contractor', desc: 'C#, nano rendering pipeline' },
+            { period: '2021–2024', company: 'Orbitron: Space Academy (Steam)', role: 'Solo Developer', desc: 'Full game development from concept to Steam release' },
+            { period: '2022', company: 'NotreGame', role: 'Unity3D Developer', desc: 'Optimization, C#' },
+            { period: '2020–2021', company: 'HGames-ArtWorks', role: 'Unity3D Developer', desc: 'Android games and addons' },
+            { period: '2017', company: 'PacoGames', role: 'Unity3D Developer', desc: 'WebGL games, C#' },
+            { period: '2015', company: 'Fibix Studio', role: 'Unity3D Developer', desc: 'iOS apps for architects' },
+            { period: '2011', company: 'Keen Software House', role: 'Solo Unity Dev', desc: 'JavaScript, game mechanics' },
+            { period: '2009–2011', company: 'Black Element', role: 'Level Designer', desc: 'Carrier Command: Gaea Mission' },
+          ].map(e => (
+            <div class="flex justify-between gap-4">
+              <div>
+                <div class="font-medium" style="color: var(--text);">{e.company}</div>
+                <div class="text-sm font-medium" style="color: var(--accent);">{e.role}</div>
+                <div class="text-sm" style="color: var(--text-2);">{e.desc}</div>
+              </div>
+              <div class="text-xs font-mono flex-shrink-0 mt-0.5 px-2 py-1 rounded-full self-start"
+                   style="color: var(--text-3); background: var(--surface); border: 1px solid var(--border);">{e.period}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div class="mb-12">
+        <h2 class="text-sm font-semibold uppercase tracking-widest mb-6 pb-3" style="color: var(--accent); border-bottom: 1px solid var(--border);">{tr.cv.interests}</h2>
+        <div class="flex flex-wrap gap-2">
+          {['History & Archaeology', 'Astronomy & Cosmology', 'Electronic Music', 'Basketball', 'Hockey'].map(i => (
+            <span class="tag text-xs">{i}</span>
+          ))}
+        </div>
+      </div>
+
+      <a href="/en" class="btn-ghost inline-flex">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+        </svg>
+        Back to portfolio
+      </a>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  @media print {
+    header, footer, button, a { display: none !important; }
+    body { background: white !important; color: black !important; }
+  }
+</style>

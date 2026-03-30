@@ -1,0 +1,52 @@
+---
+import type { Lang } from '../i18n/translations';
+import { t } from '../i18n/translations';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const tr = t(lang);
+---
+
+<section id="contact" class="section" style="background: var(--bg2);">
+  <div class="container">
+
+    <div class="max-w-2xl mx-auto text-center">
+      <div class="reveal section-label">{tr.contact.title}</div>
+      <h2 class="reveal reveal-delay-1 section-title mx-auto">{tr.contact.subtitle}</h2>
+      <p class="reveal reveal-delay-2 text-base mb-12" style="color: var(--text-2);">{tr.contact.tagline}</p>
+
+      <!-- Availability badges -->
+      <div class="reveal reveal-delay-3 flex flex-wrap justify-center gap-3 mb-12">
+        {[
+          { label: tr.contact.freelance, color: 'rgba(74,222,128,0.15)', border: 'rgba(74,222,128,0.3)', text: '#4ade80' },
+          { label: tr.contact.contract, color: 'rgba(239,153,127,0.15)', border: 'var(--border-accent)', text: 'var(--accent)' },
+          { label: tr.contact.parttime, color: 'rgba(96,165,250,0.1)', border: 'rgba(96,165,250,0.25)', text: '#60a5fa' },
+        ].map(({ label, color, border, text }) => (
+          <div
+            class="px-4 py-2 rounded-full text-sm font-medium flex items-center gap-2"
+            style={`background: ${color}; border: 1px solid ${border}; color: ${text};`}
+          >
+            <span class="w-1.5 h-1.5 rounded-full" style={`background: ${text};`}></span>
+            {label}
+          </div>
+        ))}
+      </div>
+
+      <!-- Email CTA -->
+      <div class="reveal reveal-delay-4 flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="mailto:lukas@ol1n.com" class="btn-accent text-base px-8 py-4 rounded-2xl">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+          </svg>
+          {tr.contact.email}
+        </a>
+      </div>
+
+      <!-- Current project note -->
+      <div class="reveal reveal-delay-5 mt-10 text-sm" style="color: var(--text-3);">
+        {tr.contact.current}
+      </div>
+
+    </div>
+  </div>
+</section>

@@ -1,0 +1,173 @@
+---
+import type { Lang } from '../i18n/translations';
+import { t } from '../i18n/translations';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const tr = t(lang);
+const otherLang = lang === 'cs' ? 'en' : 'cs';
+const otherLangPath = lang === 'cs' ? '/en' : '/';
+---
+
+<header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300">
+  <div class="container flex items-center justify-between h-16">
+
+    <!-- Logo -->
+    <a href={lang === 'en' ? '/en' : '/'} class="flex items-center gap-3 group">
+      <div class="w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-300 group-hover:scale-110"
+           style="background: var(--accent); box-shadow: 0 0 20px var(--accent-glow);">
+        <span class="text-white font-bold text-sm">PC</span>
+      </div>
+      <span class="font-semibold text-sm tracking-tight" style="color: var(--text);">ProCreation</span>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden md:flex items-center gap-1">
+      {[
+        { href: '#about', label: tr.nav.about },
+        { href: '#tools', label: tr.nav.tools },
+        { href: '#projects', label: tr.nav.projects },
+        { href: '#experience', label: tr.nav.experience },
+        { href: '#contact', label: tr.nav.contact },
+      ].map(({ href, label }) => (
+        <a
+          href={href}
+          class="px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:opacity-100"
+          style="color: var(--text-2);"
+          onmouseover="this.style.color='var(--text)'; this.style.background='var(--surface)'"
+          onmouseout="this.style.color='var(--text-2)'; this.style.background='transparent'"
+        >{label}</a>
+      ))}
+      <a
+        href={lang === 'en' ? '/en/cv' : '/cv'}
+        class="px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200"
+        style="color: var(--text-2);"
+        onmouseover="this.style.color='var(--text)'; this.style.background='var(--surface)'"
+        onmouseout="this.style.color='var(--text-2)'; this.style.background='transparent'"
+      >{tr.nav.cv}</a>
+    </nav>
+
+    <!-- Controls -->
+    <div class="flex items-center gap-2">
+      <!-- Lang toggle -->
+      <a
+        href={otherLangPath}
+        class="px-3 py-1.5 rounded-lg text-xs font-semibold uppercase tracking-wider transition-all duration-200 glass"
+        style="color: var(--text-2);"
+      >{otherLang}</a>
+
+      <!-- Theme toggle -->
+      <button
+        id="theme-toggle"
+        class="w-9 h-9 rounded-lg flex items-center justify-center transition-all duration-200 glass"
+        aria-label="Toggle theme"
+      >
+        <!-- Sun icon (shown in dark mode) -->
+        <svg id="icon-sun" class="w-4 h-4 hidden" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="color: var(--text-2);">
+          <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+        </svg>
+        <!-- Moon icon (shown in light mode) -->
+        <svg id="icon-moon" class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="color: var(--text-2);">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+
+      <!-- Mobile menu button -->
+      <button
+        id="mobile-menu-btn"
+        class="md:hidden w-9 h-9 rounded-lg flex items-center justify-center glass"
+        aria-label="Menu"
+      >
+        <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="color: var(--text-2);">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden glass mx-4 mb-4 rounded-2xl overflow-hidden">
+    <nav class="flex flex-col p-4 gap-1">
+      {[
+        { href: '#about', label: tr.nav.about },
+        { href: '#tools', label: tr.nav.tools },
+        { href: '#projects', label: tr.nav.projects },
+        { href: '#experience', label: tr.nav.experience },
+        { href: '#contact', label: tr.nav.contact },
+        { href: lang === 'en' ? '/en/cv' : '/cv', label: tr.nav.cv },
+      ].map(({ href, label }) => (
+        <a
+          href={href}
+          class="px-4 py-3 rounded-xl text-sm font-medium transition-colors duration-200 mobile-nav-link"
+          style="color: var(--text-2);"
+        >{label}</a>
+      ))}
+    </nav>
+  </div>
+</header>
+
+<script is:inline>
+  // Header scroll effect
+  const header = document.getElementById('site-header');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) {
+      header.style.background = 'rgba(10,10,15,0.85)';
+      header.style.backdropFilter = 'blur(20px)';
+      header.style.webkitBackdropFilter = 'blur(20px)';
+      header.style.borderBottom = '1px solid var(--border)';
+    } else {
+      header.style.background = 'transparent';
+      header.style.backdropFilter = 'none';
+      header.style.webkitBackdropFilter = 'none';
+      header.style.borderBottom = '1px solid transparent';
+    }
+  });
+
+  // Light mode: use dark background with opacity
+  document.addEventListener('themechange', () => {
+    if (window.scrollY > 40) {
+      const isDark = document.documentElement.classList.contains('dark');
+      header.style.background = isDark
+        ? 'rgba(10,10,15,0.85)'
+        : 'rgba(247,246,244,0.85)';
+    }
+  });
+
+  // Theme toggle
+  const themeBtn = document.getElementById('theme-toggle');
+  const iconSun = document.getElementById('icon-sun');
+  const iconMoon = document.getElementById('icon-moon');
+
+  function updateThemeIcons() {
+    const isDark = document.documentElement.classList.contains('dark');
+    iconSun.classList.toggle('hidden', !isDark);
+    iconMoon.classList.toggle('hidden', isDark);
+  }
+
+  updateThemeIcons();
+
+  themeBtn.addEventListener('click', () => {
+    const isDark = document.documentElement.classList.contains('dark');
+    if (isDark) {
+      document.documentElement.classList.remove('dark');
+      document.documentElement.classList.add('light');
+      localStorage.setItem('theme', 'light');
+    } else {
+      document.documentElement.classList.remove('light');
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    }
+    updateThemeIcons();
+    document.dispatchEvent(new Event('themechange'));
+  });
+
+  // Mobile menu
+  const mobileBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  mobileBtn.addEventListener('click', () => {
+    mobileMenu.classList.toggle('hidden');
+  });
+  document.querySelectorAll('.mobile-nav-link').forEach(link => {
+    link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+  });
+</script>

@@ -1,0 +1,104 @@
+---
+import type { Lang } from '../i18n/translations';
+import { t } from '../i18n/translations';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const tr = t(lang);
+
+const toolData = [
+  {
+    key: 'unity',
+    icon: '/assets/unity-logo.svg',
+    color: '#ffffff',
+    glow: 'rgba(255,255,255,0.1)',
+  },
+  {
+    key: 'csharp',
+    icon: null,
+    color: '#9b4ff5',
+    glow: 'rgba(155,79,245,0.15)',
+    letter: 'C#',
+  },
+  {
+    key: 'arduino',
+    icon: '/assets/arduino-logo.svg',
+    color: '#00979d',
+    glow: 'rgba(0,151,157,0.15)',
+  },
+  {
+    key: 'js',
+    icon: null,
+    color: '#f7df1e',
+    glow: 'rgba(247,223,30,0.1)',
+    letter: 'JS',
+  },
+  {
+    key: 'autoit',
+    icon: null,
+    color: '#ef997f',
+    glow: 'rgba(239,153,127,0.15)',
+    letter: 'Au',
+  },
+  {
+    key: 'plc',
+    icon: null,
+    color: '#60a5fa',
+    glow: 'rgba(96,165,250,0.12)',
+    letter: 'PLC',
+  },
+];
+---
+
+<section id="tools" class="section">
+  <div class="container">
+
+    <div class="text-center mb-16">
+      <div class="reveal section-label">{tr.tools.title}</div>
+      <h2 class="reveal reveal-delay-1 section-title mx-auto">{tr.tools.subtitle}</h2>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+      {toolData.map((tool, i) => {
+        const item = tr.tools.items[tool.key as keyof typeof tr.tools.items];
+        return (
+          <div
+            class={`reveal reveal-delay-${(i % 5) + 1} glass tool-card group cursor-default`}
+            style="padding: 28px 24px; transition: transform 0.3s cubic-bezier(0.16,1,0.3,1), border-color 0.3s ease;"
+          >
+            <!-- Icon -->
+            <div
+              class="w-12 h-12 rounded-2xl flex items-center justify-center mb-5 text-sm font-bold transition-transform duration-300 group-hover:scale-110"
+              style={`background: ${tool.glow}; border: 1px solid ${tool.glow}; color: ${tool.color};`}
+            >
+              {tool.icon ? (
+                <img src={tool.icon} alt={item.name} class="w-6 h-6 object-contain" />
+              ) : (
+                <span style={`color: ${tool.color}; font-size: ${tool.letter && tool.letter.length > 2 ? '10px' : '14px'}; font-weight: 700;`}>{tool.letter}</span>
+              )}
+            </div>
+
+            <h3 class="font-semibold text-base mb-1" style="color: var(--text);">{item.name}</h3>
+            <p class="text-sm leading-relaxed" style="color: var(--text-2);">{item.desc}</p>
+          </div>
+        );
+      })}
+    </div>
+
+  </div>
+</section>
+
+<script is:inline>
+  // 3D tilt on hover
+  document.querySelectorAll('.tool-card').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = (e.clientX - rect.left) / rect.width - 0.5;
+      const y = (e.clientY - rect.top) / rect.height - 0.5;
+      card.style.transform = `perspective(400px) rotateY(${x * 8}deg) rotateX(${-y * 8}deg) translateZ(4px)`;
+    });
+    card.addEventListener('mouseleave', () => {
+      card.style.transform = 'perspective(400px) rotateY(0) rotateX(0) translateZ(0)';
+    });
+  });
+</script>

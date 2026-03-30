@@ -1,0 +1,135 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { t } from '../i18n/translations';
+const tr = t('cs');
+---
+
+<Layout lang="cs" title="CV — Bc. Lukáš Zdenek">
+  <div class="min-h-screen py-24 section">
+    <div class="container max-w-3xl">
+
+      <!-- Header -->
+      <div class="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-6 mb-12">
+        <div>
+          <div class="section-label mb-3">{tr.cv.title}</div>
+          <h1 class="text-4xl font-bold mb-2" style="color: var(--text);">Bc. Lukáš Zdenek</h1>
+          <p class="text-lg" style="color: var(--accent);">{tr.hero.role}</p>
+        </div>
+        <button onclick="window.print()" class="btn-ghost self-start flex-shrink-0">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"/>
+          </svg>
+          {tr.cv.download}
+        </button>
+      </div>
+
+      <!-- Education -->
+      <div class="mb-12">
+        <h2 class="text-sm font-semibold uppercase tracking-widest mb-6 pb-3" style="color: var(--accent); border-bottom: 1px solid var(--border);">{tr.cv.study}</h2>
+        <div class="space-y-4">
+          {[
+            { period: '1997–2001', school: 'SPŠ Ostrov', field: 'Elektronika a telekomunikace' },
+            { period: 'Bc.', school: 'ZČU Plzeň, FAV', field: 'Informační technologie' },
+            { period: '1 rok', school: 'ZČU Plzeň, FF', field: 'Archeologie Čech a Moravy' },
+          ].map(e => (
+            <div class="flex justify-between gap-4">
+              <div>
+                <div class="font-medium" style="color: var(--text);">{e.school}</div>
+                <div class="text-sm" style="color: var(--text-2);">{e.field}</div>
+              </div>
+              <div class="text-xs font-mono flex-shrink-0 mt-0.5 px-2 py-1 rounded-full self-start"
+                   style="color: var(--text-3); background: var(--surface); border: 1px solid var(--border);">{e.period}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- GameDev work -->
+      <div class="mb-12">
+        <h2 class="text-sm font-semibold uppercase tracking-widest mb-6 pb-3" style="color: var(--accent); border-bottom: 1px solid var(--border);">Game Development</h2>
+        <div class="space-y-4">
+          {[
+            { period: '2023–', company: 'IExperta', role: 'Unity3D Contractor', desc: 'C#, nano rendering pipeline' },
+            { period: '2021–2024', company: 'Orbitron: Space Academy (Steam)', role: 'Solo Developer', desc: 'Celý herní vývoj od konceptu po Steam release' },
+            { period: '2022', company: 'NotreGame', role: 'Unity3D Developer', desc: 'Optimalizace, C#' },
+            { period: '2020–2021', company: 'HGames-ArtWorks', role: 'Unity3D Developer', desc: 'Android hry a addony' },
+            { period: '2017', company: 'PacoGames', role: 'Unity3D Developer', desc: 'WebGL hry, C#' },
+            { period: '2015', company: 'Fibix Studio', role: 'Unity3D Developer', desc: 'iOS apps pro architekty' },
+            { period: '2011', company: 'Keen Software House', role: 'Solo Unity Dev', desc: 'JavaScript, herní mechaniky' },
+            { period: '2009–2011', company: 'Black Element', role: 'Level Designer', desc: 'Carrier Command: Gaea Mission' },
+          ].map(e => (
+            <div class="flex justify-between gap-4">
+              <div>
+                <div class="font-medium" style="color: var(--text);">{e.company}</div>
+                <div class="text-sm font-medium" style="color: var(--accent);">{e.role}</div>
+                <div class="text-sm" style="color: var(--text-2);">{e.desc}</div>
+              </div>
+              <div class="text-xs font-mono flex-shrink-0 mt-0.5 px-2 py-1 rounded-full self-start"
+                   style="color: var(--text-3); background: var(--surface); border: 1px solid var(--border);">{e.period}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Other work -->
+      <div class="mb-12">
+        <h2 class="text-sm font-semibold uppercase tracking-widest mb-6 pb-3" style="color: var(--accent); border-bottom: 1px solid var(--border);">{tr.cv.other}</h2>
+        <div class="space-y-4">
+          {[
+            { period: '2019', company: 'NPU Praha', role: 'Technik', desc: 'Archiv' },
+            { period: '2016', company: 'SmartSoftware', role: 'Developer', desc: 'EET software a databáze' },
+            { period: '2012–2014', company: 'Bonnel Technology', role: 'µChip Developer', desc: 'Embedded C, mikrokontroléry' },
+            { period: '2008', company: 'NPU Loket', role: 'Technik', desc: '' },
+            { period: '2008–2009', company: 'Plastipack', role: 'Operátor výroby', desc: '' },
+            { period: '2007–2008', company: 'ZPA Industry', role: 'PLC Developer', desc: 'Yokogawa průmyslové systémy' },
+          ].map(e => (
+            <div class="flex justify-between gap-4">
+              <div>
+                <div class="font-medium" style="color: var(--text);">{e.company}</div>
+                <div class="text-sm font-medium" style="color: var(--text-2);">{e.role}</div>
+                {e.desc && <div class="text-sm" style="color: var(--text-3);">{e.desc}</div>}
+              </div>
+              <div class="text-xs font-mono flex-shrink-0 mt-0.5 px-2 py-1 rounded-full self-start"
+                   style="color: var(--text-3); background: var(--surface); border: 1px solid var(--border);">{e.period}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Commissions -->
+      <div class="mb-12">
+        <h2 class="text-sm font-semibold uppercase tracking-widest mb-6 pb-3" style="color: var(--accent); border-bottom: 1px solid var(--border);">{tr.cv.commissions}</h2>
+        <div class="space-y-2 text-sm" style="color: var(--text-2);">
+          <div>Člen komise životního prostředí, Nová Role (2019–2022)</div>
+          <div>Člen obecné komise pro archeologii, Praha (2019)</div>
+        </div>
+      </div>
+
+      <!-- Interests -->
+      <div class="mb-12">
+        <h2 class="text-sm font-semibold uppercase tracking-widest mb-6 pb-3" style="color: var(--accent); border-bottom: 1px solid var(--border);">{tr.cv.interests}</h2>
+        <div class="flex flex-wrap gap-2">
+          {['Historie & Archeologie', 'Astronomie & Kosmologie', 'Elektronická hudba', 'Basketbal', 'Hokej'].map(i => (
+            <span class="tag text-xs">{i}</span>
+          ))}
+        </div>
+      </div>
+
+      <!-- Back link -->
+      <a href="/" class="btn-ghost inline-flex">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+        </svg>
+        Zpět na portfolio
+      </a>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  @media print {
+    header, footer, button, a[href="/"] { display: none !important; }
+    body { background: white !important; color: black !important; }
+    .glass { background: white !important; border: 1px solid #eee !important; }
+  }
+</style>

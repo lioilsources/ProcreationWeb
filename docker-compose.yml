@@ -1,0 +1,29 @@
+services:
+
+  web:
+    build: .
+    image: procreation-web:latest
+    container_name: procreation-web
+    restart: unless-stopped
+    # NOT exposing ports to host — Cloudflare Tunnel connects directly
+    # For local testing only, uncomment:
+    # ports:
+    #   - "8080:80"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost/favicon.svg"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: procreation-tunnel
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      - TUNNEL_TOKEN=${CF_TUNNEL_TOKEN}
+    depends_on:
+      web:
+        condition: service_healthy
+
+# No exposed ports — tunnel handles all traffic

@@ -1,0 +1,16 @@
+{
+  "name": "procreation-web",
+  "type": "module",
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview"
+  },
+  "dependencies": {
+    "astro": "^5.5.5",
+    "@astrojs/tailwind": "^5.1.4",
+    "gsap": "^3.12.7",
+    "tailwindcss": "^3.4.17"
+  }
+}
